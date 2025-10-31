@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍽 Random Recipe Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>🍳 Random Recipe Generator</h1>
+    <button id="getMealBtn">Get Random Meal</button>
+
+    <!-- Loading animation -->
+    <div id="loader" class="loader hidden"></div>
+
+    <!-- Flip card -->
+    <div class="card-container">
+      <div class="card" id="mealCard">
+        <div class="front" id="mealFront">
+          <p>Click the button to get a meal 🍛</p>
+        </div>
+        <div class="back" id="mealBack"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

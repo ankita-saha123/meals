@@ -1,0 +1,140 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffe0b2, #fff3e0);
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 2rem;
+  color: #ff8f00;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:hover {
+  background-color: #e68900;
+  transform: scale(1.05);
+}
+
+/* Loader */
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #ff9800;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: 30px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.hidden {
+  display: none;
+}
+
+/* Card styles */
+.card-container {
+  perspective: 1000px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 90%;
+  max-width: 600px;
+  height: auto;
+  min-height: 400px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+  cursor: pointer;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card .front,
+.card .back {
+  position: absolute;
+  width: 100%;
+  backface-visibility: hidden;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  overflow: hidden;
+  padding: 20px;
+}
+
+.card .front {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #555;
+}
+
+.card .back {
+  transform: rotateY(180deg);
+  text-align: left;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card h2 {
+  margin-top: 10px;
+  color: #ff9800;
+}
+
+.ingredients {
+  margin-top: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.ingredients li::before {
+  content: "🍴 ";
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  button {
+    width: 80%;
+    font-size: 16px;
+  }
+
+  .card {
+    width: 100%;
+  }
+}
