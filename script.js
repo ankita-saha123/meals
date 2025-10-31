@@ -23,7 +23,7 @@ function getRandomMeal() {
     })
     .catch(err => {
       loader.classList.add('hidden');
-      mealFront.innerHTML = "<p>⚠ Error loading meal. Try again!</p>";
+      mealFront.innerHTML = "<p>⚠️ Error loading meal. Try again!</p>";
       console.error(err);
     });
 }
@@ -31,10 +31,10 @@ function getRandomMeal() {
 function displayMeal(meal) {
   const ingredients = [];
   for (let i = 1; i <= 20; i++) {
-    const ing = meal[strIngredient${i}];
-    const measure = meal[strMeasure${i}];
+    const ing = meal[`strIngredient${i}`];
+    const measure = meal[`strMeasure${i}`];
     if (ing && ing.trim() !== "") {
-      ingredients.push(${ing} - ${measure});
+      ingredients.push(`${ing} - ${measure}`);
     }
   }
 
@@ -53,7 +53,7 @@ function displayMeal(meal) {
     <h2>${meal.strMeal}</h2>
     <h3>Ingredients:</h3>
     <ul class="ingredients">
-      ${ingredients.map(i => <li>${i}</li>).join('')}
+      ${ingredients.map(i => `<li>${i}</li>`).join('')}
     </ul>
     <h3>Instructions:</h3>
     <p>${meal.strInstructions}</p>
