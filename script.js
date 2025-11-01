@@ -5,12 +5,26 @@ const mealBack = document.getElementById('mealBack');
 const mealCard = document.getElementById('mealCard');
 
 getMealBtn.addEventListener('click', getRandomMeal);
-mealCard.addEventListener('click', () => {
-  mealCard.classList.toggle('flipped');
+mealCard.addEventListener('click', toggleCard);
+
+// Allow keyboard flipping (Enter / Space)
+mealCard.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    toggleCard();
+  }
 });
+
+function toggleCard() {
+  const flipped = mealCard.classList.toggle('flipped');
+  mealCard.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+  mealBack.setAttribute('aria-hidden', flipped ? 'false' : 'true');
+}
 
 function getRandomMeal() {
   loader.classList.remove('hidden');
+  loader.setAttribute('aria-hidden', 'false');
+  getMealBtn.disabled = true;
   mealFront.innerHTML = "";
   mealBack.innerHTML = "";
 
@@ -18,12 +32,15 @@ function getRandomMeal() {
     .then(res => res.json())
     .then(data => {
       loader.classList.add('hidden');
-      const meal = data.meals[0];
-      displayMeal(meal);
+      loader.setAttribute('aria-hidden', 'true');
+      getMealBtn.disabled = false;
+      displayMeal(data.meals[0]);
     })
     .catch(err => {
       loader.classList.add('hidden');
-      mealFront.innerHTML = "<p>⚠️ Error loading meal. Try again!</p>";
+      loader.setAttribute('aria-hidden','true');
+      getMealBtn.disabled = false;
+      mealFront.innerHTML = "<p>⚠ Error loading meal. Try again!</p>";
       console.error(err);
     });
 }
@@ -38,17 +55,17 @@ function displayMeal(meal) {
     }
   }
 
-  // Front side (image + title)
+  // Front
   mealFront.innerHTML = `
     <div>
-      <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+      <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
       <h2>${meal.strMeal}</h2>
       <p><strong>${meal.strCategory}</strong> | ${meal.strArea}</p>
       <p>👆 Tap to see ingredients & instructions</p>
     </div>
   `;
 
-  // Back side (ingredients + instructions)
+  // Back
   mealBack.innerHTML = `
     <h2>${meal.strMeal}</h2>
     <h3>Ingredients:</h3>
@@ -56,6 +73,6 @@ function displayMeal(meal) {
       ${ingredients.map(i => `<li>${i}</li>`).join('')}
     </ul>
     <h3>Instructions:</h3>
-    <p>${meal.strInstructions}</p>
+    <p class="instructions">${meal.strInstructions}</p>
   `;
 }

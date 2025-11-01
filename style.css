@@ -1,77 +1,114 @@
+:root {
+  --bg-1: #fff7ef;
+  --bg-2: #fff3e0;
+  --accent: #ff8f00;
+  --accent-strong: #ff6d00;
+  --muted: #586069;
+  --card-radius: 14px;
+  --container-max: 960px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #ffe0b2, #fff3e0);
-  text-align: center;
+  background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+  color: #242424;
   margin: 0;
-  padding: 20px;
-  color: #333;
+  padding: 32px 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
-  max-width: 800px;
+  max-width: var(--container-max);
   margin: 0 auto;
 }
 
+.site-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
 h1 {
-  font-weight: 600;
-  font-size: 2rem;
-  color: #ff8f00;
-  margin-bottom: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 6px 0;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
 }
 
 button {
-  background-color: #ff9800;
+  background: linear-gradient(180deg, var(--accent), var(--accent-strong));
   color: white;
   border: none;
-  padding: 12px 25px;
-  font-size: 18px;
-  border-radius: 10px;
+  padding: 12px 22px;
+  font-size: 1rem;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform .18s ease, box-shadow .18s ease, opacity .12s ease;
+  box-shadow: 0 6px 18px rgba(255, 139, 0, 0.18);
 }
 
-button:hover {
-  background-color: #e68900;
-  transform: scale(1.05);
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-/* Loader */
+button:focus {
+  outline: 3px solid rgba(255, 142, 0, 0.18);
+  outline-offset: 2px;
+}
+
 .loader {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #ff9800;
+  border: 4px solid rgba(0, 0, 0, 0.06);
+  border-top: 4px solid var(--accent);
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: spin 1s linear infinite;
-  margin: 30px auto;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  width: 40px;
+  height: 40px;
+  animation: spin 0.9s linear infinite;
 }
 
 .hidden {
   display: none;
 }
 
-/* Card styles */
+@keyframes spin {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+
+/* Card */
 .card-container {
-  perspective: 1000px;
-  margin-top: 30px;
+  perspective: 1200px;
+  margin: 28px auto;
   display: flex;
   justify-content: center;
+  padding: 0 12px;
 }
 
 .card {
-  width: 90%;
-  max-width: 600px;
-  height: auto;
-  min-height: 400px;
+  width: 100%;
+  max-width: 800px;
+  min-height: 900px;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.8s;
+  transition: transform 0.8s cubic-bezier(.2, .9, .3, 1);
   cursor: pointer;
 }
 
@@ -82,59 +119,95 @@ button:hover {
 .card .front,
 .card .back {
   position: absolute;
-  width: 100%;
+  inset: 0;
   backface-visibility: hidden;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff, #fffaf6);
+  border-radius: var(--card-radius);
+  box-shadow: 0 12px 30px rgba(20, 20, 20, 0.06);
   padding: 20px;
+  overflow: auto;
 }
 
 .card .front {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  font-size: 18px;
-  color: #555;
+  justify-content: center;
+  gap: 12px;
+}
+
+.card .front img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.placeholder {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin: 0;
 }
 
 .card .back {
   transform: rotateY(180deg);
-  text-align: left;
-}
-
-.card img {
-  width: 100%;
-  border-radius: 10px;
+  padding: 22px;
 }
 
 .card h2 {
-  margin-top: 10px;
-  color: #ff9800;
+  color: var(--accent);
+  margin: 8px 0;
+  font-size: 1.25rem;
 }
 
 .ingredients {
-  margin-top: 10px;
   list-style: none;
   padding: 0;
+  margin: 10px 0 16px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
 }
 
 .ingredients li::before {
-  content: "🍴 ";
+  content: '🍴';
+  margin-right: 8px;
 }
 
-@media (max-width: 600px) {
-  h1 {
-    font-size: 1.6rem;
-  }
+.instructions {
+  color: #333;
+  line-height: 1.5;
+  font-size: 0.98rem;
+}
 
-  button {
-    width: 80%;
-    font-size: 16px;
+/* Wide screens: ingredients in two columns */
+@media (min-width: 720px) {
+  .ingredients {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Layout tweaks for small devices */
+@media (max-width: 520px) {
+  .controls {
+    flex-direction: column;
   }
 
   .card {
-    width: 100%;
+    min-height: 260px;
   }
+
+  .card .back {
+    padding: 16px;
+  }
+
+  .subtitle {
+    font-size: 0.92rem;
+  }
+}
+
+/* keyboard focus for card */
+.card:focus {
+  outline: 4px solid rgba(255, 143, 0, 0.12);
+  outline-offset: 6px;
 }

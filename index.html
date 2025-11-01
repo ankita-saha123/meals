@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🍽 Random Recipe Generator</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 </head>
+
 <body>
   <div class="container">
-    <h1>🍳 Random Recipe Generator</h1>
-    <button id="getMealBtn">Get Random Meal</button>
 
-    <!-- Loading animation -->
-    <div id="loader" class="loader hidden"></div>
+    <header class="site-header">
+      <h1>🍳 Random Recipe Generator</h1>
+      <p class="subtitle">Discover a new meal instantly — tap the card to flip for ingredients & instructions.</p>
+    </header>
 
-    <!-- Flip card -->
-    <div class="card-container">
-      <div class="card" id="mealCard">
-        <div class="front" id="mealFront">
-          <p>Click the button to get a meal 🍛</p>
-        </div>
-        <div class="back" id="mealBack"></div>
-      </div>
+    <div class="controls">
+      <button id="getMealBtn" aria-controls="mealCard">Get Random Meal</button>
+      <div id="loader" class="loader hidden" aria-hidden="true" aria-live="polite"></div>
     </div>
+
+    <main>
+      <div class="card-container">
+        <div class="card" id="mealCard" role="button" tabindex="0" aria-pressed="false" aria-live="polite">
+          <div class="front" id="mealFront">
+            <p class="placeholder">Click the button to get a meal 🍛</p>
+          </div>
+          <div class="back" id="mealBack" aria-hidden="true"></div>
+        </div>
+      </div>
+    </main>
+
   </div>
 
   <script src="script.js"></script>
